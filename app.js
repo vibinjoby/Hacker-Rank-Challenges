@@ -612,8 +612,30 @@ function flatlandSpaceStations(
   const before = Math.abs(c[0] - 0);
   const after = Math.abs(n - c[c.length - 1]) - 1;
   const output = Math.max(...result, before, after);
-  console.log(output);
 
   return result;
 }
-flatlandSpaceStations();
+//https://www.hackerrank.com/challenges/fair-rations
+//Fair Rations
+
+// Complete the fairRations function below.
+function fairRations(B = [2, 3, 4, 5, 6]) {
+  let count = 0;
+
+  let isAllEven = B.reduce((a, b) => a + (b % 2), 0) === 0;
+  let sum = B.reduce((a, b) => a + b);
+  if (sum % 2 === 0) {
+    while (!isAllEven) {
+      const firstItem = B.find((item) => item % 2 !== 0);
+      const idx = B.indexOf(firstItem);
+
+      B.splice(idx, 1, firstItem + 1);
+      B.splice(idx + 1, 1, B[idx + 1] + 1);
+
+      count += 2;
+      isAllEven = B.reduce((a, b) => a + (b % 2), 0) === 0;
+    }
+    return count;
+  }
+  return "NO";
+}
